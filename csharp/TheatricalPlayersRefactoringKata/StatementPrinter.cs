@@ -22,8 +22,8 @@ namespace TheatricalPlayersRefactoringKata
             foreach(var performance in invoice.Performances) 
             {
                 var play = plays[performance.PlayID];
-                var performanceAmount = CalculatePerformanceAmount(performance, play);
-                volumeCredits += CalculateVolumeCredits(performance, play);
+                var performanceAmount = play.CalculatePerformanceAmount(performance.Audience);
+                volumeCredits += play.CalculateVolumeCredits(performance.Audience);
                 totalAmount += performanceAmount;
 
                 // print line for this order
@@ -52,43 +52,6 @@ namespace TheatricalPlayersRefactoringKata
         private string GetPerformanceLine(Play play, decimal performanceAmount, Performance performance)
         {
             return String.Format(_cultureInfo, "  {0}: {1:C} ({2} seats)\n", play.Name, performanceAmount, performance.Audience);
-        }
-
-        private static int CalculateVolumeCredits(Performance performance, Play play)
-        {
-            var volumeCredits = Math.Max(performance.Audience - 30, 0);
-            // add extra credit for every ten comedy attendees
-            if ("comedy" == play.Type) volumeCredits += (int)Math.Floor((decimal)performance.Audience / 5);
-            return volumeCredits;
-        }
-
-        private static decimal CalculatePerformanceAmount(Performance performance, Play play)
-        {
-            var performanceAmount = 0;
-            switch (play.Type)
-            {
-                case "tragedy":
-                    performanceAmount = 40000;
-                    if (performance.Audience > 30)
-                    {
-                        performanceAmount += 1000 * (performance.Audience - 30);
-                    }
-
-                    break;
-                case "comedy":
-                    performanceAmount = 30000;
-                    if (performance.Audience > 20)
-                    {
-                        performanceAmount += 10000 + 500 * (performance.Audience - 20);
-                    }
-
-                    performanceAmount += 300 * performance.Audience;
-                    break;
-                default:
-                    throw new Exception("unknown type: " + play.Type);
-            }
-            
-            return Convert.ToDecimal(performanceAmount / 100);
         }
     }
 }
