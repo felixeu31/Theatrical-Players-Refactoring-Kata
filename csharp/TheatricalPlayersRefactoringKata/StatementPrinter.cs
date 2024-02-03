@@ -13,24 +13,16 @@ namespace TheatricalPlayersRefactoringKata
             _cultureInfo = new CultureInfo("en-US");
         }
 
-        public string Print(Invoice invoice, Dictionary<string, Play> plays)
+        public string Print(Invoice invoice)
         {
-            var totalAmount = 0M;
-            var volumeCredits = 0;
             var statement = GetStatementHeader(invoice);
 
-            foreach(var performance in invoice.Performances) 
+            foreach(var invoiceItem in invoice.InvoiceItems()) 
             {
-                var play = plays[performance.PlayID];
-                var performanceAmount = play.CalculatePerformanceAmount(performance.Audience);
-                volumeCredits += play.CalculateVolumeCredits(performance.Audience);
-                totalAmount += performanceAmount;
-
-                // print line for this order
-                statement += GetPerformanceLine(play, performanceAmount, performance);
+                statement += GetPerformanceLine(invoiceItem);
             }
-            statement += GetOwedAmountLine(totalAmount);
-            statement += GetCreditsLine(volumeCredits);
+            statement += GetOwedAmountLine(invoice.TotalAmount());
+            statement += GetCreditsLine(invoice.VolumeCredits());
             return statement;
         }
 
@@ -39,9 +31,9 @@ namespace TheatricalPlayersRefactoringKata
             return $"Statement for {invoice.Customer}\n";
         }
 
-        private static string GetCreditsLine(int volumeCredits)
+        private static string GetCreditsLine(decimal volumeCredits)
         {
-            return String.Format("You earned {0} credits\n", volumeCredits);
+            return $"You earned {volumeCredits} credits\n";
         }
 
         private string GetOwedAmountLine(decimal totalAmount)
@@ -49,9 +41,9 @@ namespace TheatricalPlayersRefactoringKata
             return String.Format(_cultureInfo, "Amount owed is {0:C}\n", totalAmount);
         }
 
-        private string GetPerformanceLine(Play play, decimal performanceAmount, Performance performance)
+        private string GetPerformanceLine(InvoiceItem invoiceItem)
         {
-            return String.Format(_cultureInfo, "  {0}: {1:C} ({2} seats)\n", play.Name, performanceAmount, performance.Audience);
+            return String.Format(_cultureInfo, "  {0}: {1:C} ({2} seats)\n", invoiceItem.Name, invoiceItem.Amount, invoiceItem.Audience);
         }
     }
 }
