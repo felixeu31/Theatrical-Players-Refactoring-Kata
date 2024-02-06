@@ -23,7 +23,8 @@ namespace TheatricalPlayersRefactoringKata
             foreach (var performance in _performances)
             {
                 var play = _plays[performance.PlayID];
-                yield return new InvoiceItem(play.Name, play.CalculatePerformanceAmount(performance.Audience),
+                var calculator = PerformanceCalculatorFactory.Create(performance, play);
+                yield return new InvoiceItem(play.Name, calculator.CalculateAmount(),
                     performance.Audience);
             }
         }
@@ -34,7 +35,8 @@ namespace TheatricalPlayersRefactoringKata
             foreach (var performance in _performances)
             {
                 var play = _plays[performance.PlayID];
-                volumeCredits += play.CalculateVolumeCredits(performance.Audience);
+                var calculator = PerformanceCalculatorFactory.Create(performance, play);
+                volumeCredits += calculator.CalculateVolumeCredits();
             }
 
             return volumeCredits;
