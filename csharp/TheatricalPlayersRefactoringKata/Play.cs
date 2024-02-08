@@ -2,7 +2,7 @@ using System;
 
 namespace TheatricalPlayersRefactoringKata
 {
-    public class Play
+    public class Play : IPlay
     {
         private string _name;
         private string _type;

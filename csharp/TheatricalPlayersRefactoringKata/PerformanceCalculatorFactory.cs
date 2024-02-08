@@ -4,7 +4,7 @@ namespace TheatricalPlayersRefactoringKata;
 
 public static class PerformanceCalculatorFactory
 {
-    public static IPerformanceCalculator Create(Performance performance, Play play)
+    public static IPerformanceCalculator Create(Performance performance, IPlay play)
     {
         switch (play.Type)
         {

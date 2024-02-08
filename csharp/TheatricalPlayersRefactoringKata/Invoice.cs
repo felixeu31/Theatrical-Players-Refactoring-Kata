@@ -7,9 +7,9 @@ namespace TheatricalPlayersRefactoringKata
     {
         private readonly string _customer;
         private readonly List<Performance> _performances;
-        private readonly Dictionary<string, Play> _plays;
+        private readonly Dictionary<string, IPlay> _plays;
 
-        public Invoice(string customer, List<Performance> performance, Dictionary<string, Play> plays)
+        public Invoice(string customer, List<Performance> performance, Dictionary<string, IPlay> plays)
         {
             this._customer = customer;
             this._performances = performance;
