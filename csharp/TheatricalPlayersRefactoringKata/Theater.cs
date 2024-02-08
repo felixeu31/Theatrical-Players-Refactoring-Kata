@@ -19,6 +19,13 @@ public class Theater
 
     public Invoice GenerateInvoice(string customer, List<Performance> performances)
     {
-        return new Invoice(customer, performances, _plays);
+        var invoice = new Invoice(customer);
+
+        foreach (var performance in performances)
+        {
+            invoice.WithPerformance(performance, _plays[performance.PlayID]);
+        }
+
+        return invoice;
     }
 }

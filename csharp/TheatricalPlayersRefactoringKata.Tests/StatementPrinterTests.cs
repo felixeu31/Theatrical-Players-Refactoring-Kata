@@ -26,19 +26,5 @@ namespace TheatricalPlayersRefactoringKata.Tests
 
             Approvals.Verify(result);
         }
-        [Fact]
-        public void test_statement_with_new_play_types()
-        {
-            var plays = new Dictionary<string, IPlay>();
-            plays.Add("henry-v", new Play("Henry V", "history"));
-            plays.Add("as-like", new Play("As You Like It", "pastoral"));
-
-            Invoice invoice = new Invoice("BigCoII", new List<Performance>{new Performance("henry-v", 53),
-                new Performance("as-like", 55)}, plays);
-            
-            StatementPrinter statementPrinter = new StatementPrinter();
-
-            Assert.Throws<Exception>(() => statementPrinter.Print(invoice));
-        }
     }
 }

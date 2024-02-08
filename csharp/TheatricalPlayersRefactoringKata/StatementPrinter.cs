@@ -17,12 +17,12 @@ namespace TheatricalPlayersRefactoringKata
         {
             var statement = GetStatementHeader(invoice);
 
-            foreach(var invoiceItem in invoice.InvoiceItems()) 
+            foreach(var invoiceItem in invoice.InvoiceItems) 
             {
                 statement += GetPerformanceLine(invoiceItem);
             }
-            statement += GetOwedAmountLine(invoice.TotalAmount());
-            statement += GetCreditsLine(invoice.VolumeCredits());
+            statement += GetOwedAmountLine(invoice.TotalAmount);
+            statement += GetCreditsLine(invoice.VolumeCredits);
             return statement;
         }
 

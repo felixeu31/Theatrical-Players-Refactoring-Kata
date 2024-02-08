@@ -5,60 +5,36 @@ namespace TheatricalPlayersRefactoringKata
 {
     public class Invoice
     {
-        private readonly string _customer;
-        private readonly List<Performance> _performances;
-        private readonly IReadOnlyDictionary<string, IPlay> _plays;
+        private List<InvoiceItem> _items;
+        private int _volumeCredits;
+        private decimal _totalAmount;
 
-        public Invoice(string customer, List<Performance> performance, IReadOnlyDictionary<string, IPlay> plays)
+        public Invoice(string customer)
         {
-            this._customer = customer;
-            this._performances = performance;
-            _plays = plays;
+            this.Customer = customer;
+            _volumeCredits = 0;
+            _totalAmount = 0;
+            _items = new List<InvoiceItem>();
         }
 
-        public string Customer => _customer;
+        public string Customer { get; }
 
-        public IEnumerable<InvoiceItem> InvoiceItems()
+        public int VolumeCredits => _volumeCredits;
+
+        public decimal TotalAmount => _totalAmount;
+
+        public IReadOnlyList<InvoiceItem> InvoiceItems => _items;
+
+        public Invoice WithPerformance(Performance performance, IPlay play)
         {
-            foreach (var performance in _performances)
-            {
-                var play = _plays[performance.PlayID];
-                var calculator = PerformanceCalculatorFactory.Create(performance, play);
-                yield return new InvoiceItem(play.Name, calculator.CalculateAmount(),
-                    performance.Audience);
-            }
-        }
+            var calculator = PerformanceCalculatorFactory.Create(performance, play);
+            var invoiceItem = new InvoiceItem(play.Name, calculator.CalculateAmount(),
+                performance.Audience);
 
-        public decimal VolumeCredits()
-        {
-            decimal volumeCredits = 0;
-            foreach (var performance in _performances)
-            {
-                var play = _plays[performance.PlayID];
-                var calculator = PerformanceCalculatorFactory.Create(performance, play);
-                volumeCredits += calculator.CalculateVolumeCredits();
-            }
-
-            return volumeCredits;
-        }
-
-        public decimal TotalAmount()
-        {
-            return InvoiceItems().Sum(x => x.Amount);
-        }
-    }
-
-    public class InvoiceItem
-    {
-        public string Name { get; }
-        public decimal Amount { get; }
-        public int Audience { get; }
-
-        public InvoiceItem(string name, decimal amount, int audience)
-        {
-            Name = name;
-            Amount = amount;
-            Audience = audience;
+            _items.Add(invoiceItem);
+            _volumeCredits += calculator.CalculateVolumeCredits();
+            _totalAmount += invoiceItem.Amount;
+            return this;
         }
     }
 }
