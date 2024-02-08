@@ -12,14 +12,14 @@ namespace TheatricalPlayersRefactoringKata.Tests
         [UseReporter(typeof(DiffReporter))]
         public void test_statement_example()
         {
-            var plays = new Dictionary<string, IPlay>();
-            plays.Add("hamlet", new TragedyPlay("Hamlet"));
-            plays.Add("as-like", new ComedyPlay("As You Like It"));
-            plays.Add("othello", new TragedyPlay("Othello"));
+            var theater = new Theater()
+                .WithTragedy("hamlet", "Hamlet")
+                .WithComedy("as-like", "As You Like It")
+                .WithTragedy("othello", "Othello");
 
-            Invoice invoice = new Invoice("BigCo", new List<Performance>{new Performance("hamlet", 55),
-                new Performance("as-like", 35),
-                new Performance("othello", 40)}, plays);
+            Invoice invoice = theater.GenerateInvoice("BigCo", new List<Performance>{new("hamlet", 55),
+                new("as-like", 35),
+                new("othello", 40)});
             
             StatementPrinter statementPrinter = new StatementPrinter();
             var result = statementPrinter.Print(invoice);
