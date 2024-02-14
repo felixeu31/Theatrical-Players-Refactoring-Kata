@@ -31,13 +31,13 @@ namespace TheatricalPlayersRefactoringKata
             return _performance.Audience > _volumeThreshold;
         }
 
-        public int CalculateVolumeCredits()
+        public virtual int CalculateVolumeCredits()
         {
             var volumeCredits = Math.Max(_performance.Audience - 30, 0);
             return volumeCredits;
         }
 
-        public decimal CalculateAmount()
+        public virtual decimal CalculateAmount()
         {
             if (!AudienceExceedVolumeThreshold())
             {

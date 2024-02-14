@@ -2,33 +2,22 @@
 
 namespace TheatricalPlayersRefactoringKata;
 
-public class ComedyCalculator : IPerformanceCalculator
+public class ComedyCalculator : PlayCalculator
 {
     private readonly Performance _performance;
 
-    public ComedyCalculator(Performance performance)
+    public ComedyCalculator(Performance performance) : base(performance, 20, 400, 5)
     {
         _performance = performance;
     }
 
-    public decimal CalculateAmount()
+    public override decimal CalculateAmount()
     {
-        decimal performanceAmount = 30000;
-
-        if (_performance.Audience > 20)
-        {
-            performanceAmount += 10000 + 500 * (_performance.Audience - 20);
-        }
-        performanceAmount += 300 * _performance.Audience;
-
-        return Convert.ToDecimal(performanceAmount / 100);
+        return base.CalculateAmount() + 3 * _performance.Audience;
     }
 
-    public int CalculateVolumeCredits()
+    public override int CalculateVolumeCredits()
     {
-
-        var volumeCredits = Math.Max(_performance.Audience - 30, 0);
-        volumeCredits += (int)Math.Floor((decimal)_performance.Audience / 5);
-        return volumeCredits;
+        return base.CalculateVolumeCredits() + (int)Math.Floor((decimal)_performance.Audience / 5);
     }
 }
