@@ -1,19 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace TheatricalPlayersRefactoringKata;
 
-namespace TheatricalPlayersRefactoringKata
+public record TragedyPlay(string Name) : IPlay
 {
-    public class TragedyPlay : IPlay
-    {
-        public string Name { get; }
-        public string Type => "tragedy";
-
-        public TragedyPlay(string name)
-        {
-            Name = name;
-        }
-    }
+    public string Type => "tragedy";
 }
