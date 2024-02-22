@@ -10,7 +10,7 @@ namespace TheatricalPlayersRefactoringKata.Tests
     {
         [Fact]
         [UseReporter(typeof(DiffReporter))]
-        public void test_statement_example()
+        public void PrintStatement_WithSeveralValidPerformances_PrintsExpectedStatement()
         {
             var plays = new Dictionary<string, Play>();
             plays.Add("hamlet", new Play("Hamlet", "tragedy"));
@@ -27,7 +27,7 @@ namespace TheatricalPlayersRefactoringKata.Tests
             Approvals.Verify(result);
         }
         [Fact]
-        public void test_statement_with_new_play_types()
+        public void PrintStatement_WithUnexpectedTypes_ThrowsException()
         {
             var plays = new Dictionary<string, Play>();
             plays.Add("henry-v", new Play("Henry V", "history"));
