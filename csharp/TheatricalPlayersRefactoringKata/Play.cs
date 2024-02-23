@@ -1,16 +1,15 @@
 namespace TheatricalPlayersRefactoringKata
 {
-    public class Play
+    public abstract class Play
     {
-        private string _name;
-        private string _type;
+        public string Name { get; private set; }
+        public abstract string Type { get;}
 
-        public string Name { get => _name; set => _name = value; }
-        public string Type { get => _type; set => _type = value; }
-
-        public Play(string name, string type) {
-            this._name = name;
-            this._type = type;
+        public Play(string name) {
+            Name = name;
         }
+
+        public abstract int CalculateAmount(int performanceAudience);
     }
 }
+    
