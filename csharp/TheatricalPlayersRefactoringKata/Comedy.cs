@@ -19,5 +19,15 @@ namespace TheatricalPlayersRefactoringKata
 
             return dramaPerformanceAmount;
         }
+
+        public override int CalculateOwnedCreditsByAudienceVolume(Performance performance)
+        {
+            int ownedCreditsByAudienceVolume = Math.Max(performance.Audience - 30, 0);
+            
+            // add extra credit for every ten comedy attendees
+            ownedCreditsByAudienceVolume += (int)Math.Floor((decimal)performance.Audience / 5);
+
+            return ownedCreditsByAudienceVolume;
+        }
     }
 }

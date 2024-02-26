@@ -1,3 +1,5 @@
+using System;
+
 namespace TheatricalPlayersRefactoringKata
 {
     public abstract class Play
@@ -10,6 +12,8 @@ namespace TheatricalPlayersRefactoringKata
         }
 
         public abstract int CalculateAmount(int performanceAudience);
+
+        public abstract int CalculateOwnedCreditsByAudienceVolume(Performance performance);
     }
 }
     

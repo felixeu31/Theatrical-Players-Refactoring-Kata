@@ -16,6 +16,13 @@ namespace TheatricalPlayersRefactoringKata
             }
             return tragedyPerformanceAmount;
         }
+
+        public override int CalculateOwnedCreditsByAudienceVolume(Performance performance)
+        {
+            int ownedCreditsByAudienceVolume = Math.Max(performance.Audience - 30, 0);
+
+            return ownedCreditsByAudienceVolume;
+        }
     }
 }
     
