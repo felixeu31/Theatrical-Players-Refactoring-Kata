@@ -28,7 +28,7 @@ namespace TheatricalPlayersRefactoringKata
                 // Owned Credits
                 ownedCreditsByAudienceVolume += Math.Max(performance.Audience - 30, 0);
                 // add extra credit for every ten comedy attendees
-                if ("comedy" == play.Type) ownedCreditsByAudienceVolume += (int)Math.Floor((decimal)performance.Audience / 5);
+                if (PlayType.Comedy == play.Type) ownedCreditsByAudienceVolume += (int)Math.Floor((decimal)performance.Audience / 5);
 
                 // print line for this order
                 printedStatement += String.Format(_cultureInfo, "  {0}: {1:C} ({2} seats)\n", play.Name, Convert.ToDecimal(performanceAmount / 100), performance.Audience);

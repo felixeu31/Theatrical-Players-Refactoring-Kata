@@ -4,7 +4,7 @@ namespace TheatricalPlayersRefactoringKata
 {
     public class Tragedy : Play
     {
-        public override string Type => "tragedy";
+        public override PlayType Type => PlayType.Tragedy;
 
         public Tragedy(string name) : base(name) {}
         public override int CalculateAmount(int performanceAudience)
