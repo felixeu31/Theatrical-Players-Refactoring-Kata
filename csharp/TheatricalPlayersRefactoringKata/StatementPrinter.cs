@@ -25,10 +25,7 @@ namespace TheatricalPlayersRefactoringKata
 
                 var performanceAmount = play.CalculateAmount(performance.Audience);
 
-                // Owned Credits
-                ownedCreditsByAudienceVolume += Math.Max(performance.Audience - 30, 0);
-                // add extra credit for every ten comedy attendees
-                if (PlayType.Comedy == play.Type) ownedCreditsByAudienceVolume += (int)Math.Floor((decimal)performance.Audience / 5);
+                ownedCreditsByAudienceVolume += CalculateOwnedCreditsByAudienceVolume(performance, play);
 
                 // print line for this order
                 printedStatement += String.Format(_cultureInfo, "  {0}: {1:C} ({2} seats)\n", play.Name, Convert.ToDecimal(performanceAmount / 100), performance.Audience);
@@ -37,6 +34,16 @@ namespace TheatricalPlayersRefactoringKata
             printedStatement += String.Format(_cultureInfo, "Amount owed is {0:C}\n", Convert.ToDecimal(totalAmount / 100));
             printedStatement += String.Format("You earned {0} credits\n", ownedCreditsByAudienceVolume);
             return printedStatement;
+        }
+
+        private static int CalculateOwnedCreditsByAudienceVolume(Performance performance, Play play)
+        {
+            int ownedCreditsByAudienceVolume = Math.Max(performance.Audience - 30, 0);
+            
+            // add extra credit for every ten comedy attendees
+            if (PlayType.Comedy == play.Type) ownedCreditsByAudienceVolume += (int)Math.Floor((decimal)performance.Audience / 5);
+
+            return ownedCreditsByAudienceVolume;
         }
     }
 }
