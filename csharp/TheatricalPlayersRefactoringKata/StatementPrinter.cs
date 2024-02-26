@@ -14,7 +14,7 @@ namespace TheatricalPlayersRefactoringKata
             CultureInfo cultureInfo = new CultureInfo("en-US");
 
             foreach(var performance in invoice.Performances) 
-            {
+            {   
                 var play = plays[performance.PlayID];
 
                 var performanceAmount = play.CalculateAmount(performance.Audience);

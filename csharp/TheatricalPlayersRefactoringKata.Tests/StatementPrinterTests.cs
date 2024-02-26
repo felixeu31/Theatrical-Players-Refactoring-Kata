@@ -13,9 +13,9 @@ namespace TheatricalPlayersRefactoringKata.Tests
         public void PrintStatement_WithSeveralValidPerformances_PrintsExpectedStatement()
         {
             var plays = new Dictionary<string, Play>();
-            plays.Add("hamlet", new Play("Hamlet", "tragedy"));
-            plays.Add("as-like", new Play("As You Like It", "comedy"));
-            plays.Add("othello", new Play("Othello", "tragedy"));
+            plays.Add("hamlet", new Tragedy("Hamlet"));
+            plays.Add("as-like", new Comedy("As You Like It"));
+            plays.Add("othello", new Tragedy("Othello"));
 
             Invoice invoice = new Invoice("BigCo", new List<Performance>{new Performance("hamlet", 55),
                 new Performance("as-like", 35),
@@ -25,20 +25,6 @@ namespace TheatricalPlayersRefactoringKata.Tests
             var result = statementPrinter.Print(invoice, plays);
 
             Approvals.Verify(result);
-        }
-        [Fact]
-        public void PrintStatement_WithUnexpectedTypes_ThrowsException()
-        {
-            var plays = new Dictionary<string, Play>();
-            plays.Add("henry-v", new Play("Henry V", "history"));
-            plays.Add("as-like", new Play("As You Like It", "pastoral"));
-
-            Invoice invoice = new Invoice("BigCoII", new List<Performance>{new Performance("henry-v", 53),
-                new Performance("as-like", 55)});
-            
-            StatementPrinter statementPrinter = new StatementPrinter();
-
-            Assert.Throws<Exception>(() => statementPrinter.Print(invoice, plays));
         }
     }
 }

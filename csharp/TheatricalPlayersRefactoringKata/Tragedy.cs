@@ -2,7 +2,7 @@
 
 namespace TheatricalPlayersRefactoringKata
 {
-    internal class Tragedy : Play
+    public class Tragedy : Play
     {
         public override string Type => "tragedy";
 
