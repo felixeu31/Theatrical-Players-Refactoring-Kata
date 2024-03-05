@@ -13,7 +13,7 @@ namespace TheatricalPlayersRefactoringKata
             _cultureInfo = new CultureInfo("en-US");
         }
 
-        public string Print(Invoice invoice, Dictionary<string, Play> plays)
+        public string Print(Invoice invoice, Dictionary<string, IPlay> plays)
         {
             var totalAmount = 0;
             var ownedCreditsByAudienceVolume = 0;

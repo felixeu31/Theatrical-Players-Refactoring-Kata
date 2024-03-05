@@ -12,7 +12,7 @@ namespace TheatricalPlayersRefactoringKata.Tests
         [UseReporter(typeof(DiffReporter))]
         public void PrintStatement_WithSeveralValidPerformances_PrintsExpectedStatement()
         {
-            var plays = new Dictionary<string, Play>();
+            var plays = new Dictionary<string, IPlay>();
             plays.Add("hamlet", new Tragedy("Hamlet"));
             plays.Add("as-like", new Comedy("As You Like It"));
             plays.Add("othello", new Tragedy("Othello"));

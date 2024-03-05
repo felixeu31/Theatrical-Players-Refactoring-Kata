@@ -3,12 +3,16 @@
 
 namespace TheatricalPlayersRefactoringKata
 {
-    public class Comedy : Play
+    public class Comedy : IPlay
     {
-        public override PlayType Type => PlayType.Comedy;
+        public string Name { get; }
+        public PlayType Type => PlayType.Comedy;
 
-        public Comedy(string name) : base(name) {}
-        public override int CalculateAmount(int performanceAudience)
+        public Comedy(string name)
+        {
+            Name = name;
+        }
+        public int CalculateAmount(int performanceAudience)
         {
             var dramaPerformanceAmount = 30000;
             if (performanceAudience > 20)
@@ -20,7 +24,7 @@ namespace TheatricalPlayersRefactoringKata
             return dramaPerformanceAmount;
         }
 
-        public override int CalculateOwnedCreditsByAudienceVolume(Performance performance)
+        public int CalculateOwnedCreditsByAudienceVolume(Performance performance)
         {
             int ownedCreditsByAudienceVolume = Math.Max(performance.Audience - 30, 0);
             
