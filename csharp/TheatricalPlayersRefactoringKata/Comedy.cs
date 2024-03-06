@@ -6,7 +6,6 @@ namespace TheatricalPlayersRefactoringKata
     public class Comedy : IPlay
     {
         public string Name { get; }
-        public PlayType Type => PlayType.Comedy;
 
         public Comedy(string name)
         {

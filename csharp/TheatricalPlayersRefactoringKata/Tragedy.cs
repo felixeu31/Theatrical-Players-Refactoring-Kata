@@ -6,8 +6,6 @@ namespace TheatricalPlayersRefactoringKata
     {
         public string Name { get;}
 
-        public PlayType Type => PlayType.Tragedy;
-
         public Tragedy(string name)
         {
             Name = name;
